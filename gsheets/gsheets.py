@@ -264,10 +264,10 @@ class SheetPushInterface(BaseSheetInterface):
         # order the field indexes by their col index
         sorted_field_indexes = sorted(field_indexes, key=lambda x: x[1])
 
-        row_data = []
+        row_data = [''] * (sorted_field_indexes[-1][1] + 1) if sorted_field_indexes else []
         for field, ix in sorted_field_indexes:
             logger.debug(f'writing data in field {field} to col ix {ix}')
-            row_data.append(data[field])
+            row_data[ix] = data[field]
 
         # get the row to update if it exists, otherwise we will add a new row
         existing_row_ix = self.existing_row(**data)
